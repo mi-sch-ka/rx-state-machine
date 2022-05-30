@@ -1,4 +1,4 @@
-part of 'state_machine.dart';
+part of 'rx_state_machine.dart';
 
 abstract class Transition<STATE, EVENT, SIDE_EFFECT> {
   Transition._();

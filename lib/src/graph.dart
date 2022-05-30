@@ -1,4 +1,4 @@
-part of 'state_machine.dart';
+part of 'rx_state_machine.dart';
 
 class Graph<STATE, EVENT, SIDE_EFFECT> {
   Graph(this.initialState, this.finishStates, this.stateDefinitions, this.onTransitionListeners);
@@ -31,7 +31,7 @@ class GraphBuilder<STATE, EVENT, SIDE_EFFECT> {
 
   late STATE? _initialState = _graph?.initialState;
   late Set<STATE>? _finishStates = _graph?.finishStates;
-  final Map<Type, _State<STATE, EVENT, SIDE_EFFECT>> _stateDefinitions = {};
+  late final Map<Type, _State<STATE, EVENT, SIDE_EFFECT>> _stateDefinitions =  _graph?.stateDefinitions ?? {};
   late List<TransitionListener<STATE, EVENT, SIDE_EFFECT>> _onTransitionListeners = _graph?.onTransitionListeners ?? [];
 
   void initialState(STATE state) => _initialState = state;

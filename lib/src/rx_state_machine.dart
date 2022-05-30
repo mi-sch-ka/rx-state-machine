@@ -6,14 +6,14 @@ part 'graph.dart';
 
 part 'transition.dart';
 
-class StateMachine<STATE, EVENT, SIDE_EFFECT> {
-  factory StateMachine.create(BuildGraph<STATE, EVENT, SIDE_EFFECT> buildGraph) {
+class RxStateMachine<STATE, EVENT, SIDE_EFFECT> {
+  factory RxStateMachine.create(BuildGraph<STATE, EVENT, SIDE_EFFECT> buildGraph) {
     final graphBuilder = GraphBuilder<STATE, EVENT, SIDE_EFFECT>();
     buildGraph(graphBuilder);
-    return StateMachine._(graphBuilder.build());
+    return RxStateMachine._(graphBuilder.build());
   }
 
-  StateMachine._(this._graph);
+  RxStateMachine._(this._graph);
 
   final Graph<STATE, EVENT, SIDE_EFFECT> _graph;
 
@@ -42,6 +42,12 @@ class StateMachine<STATE, EVENT, SIDE_EFFECT> {
     }
 
     return transition;
+  }
+
+  RxStateMachine<STATE, EVENT, SIDE_EFFECT> as(BuildGraph<STATE, EVENT, SIDE_EFFECT> buildGraph) {
+    final graphBuilder = GraphBuilder<STATE, EVENT, SIDE_EFFECT>(this._graph);
+    buildGraph(graphBuilder);
+    return RxStateMachine._(graphBuilder.build());
   }
 
   void _newState(STATE state) {
