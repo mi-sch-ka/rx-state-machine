@@ -27,9 +27,6 @@ class RxStateMachine<STATE, EVENT, SIDE_EFFECT> {
     final fromState = _stateReference;
     final transition = _transition(fromState, event);
 
-    if (transition is Valid) {
-      _newState((transition as Valid).toState);
-    }
     _graph.onTransitionListeners.forEach((onTransition) {
       onTransition(transition);
     });

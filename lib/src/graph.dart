@@ -31,7 +31,7 @@ class GraphBuilder<STATE, EVENT, SIDE_EFFECT> {
 
   late STATE? _initialState = _graph?.initialState;
   late Set<STATE>? _finishStates = _graph?.finishStates;
-  late final Map<Type, _State<STATE, EVENT, SIDE_EFFECT>> _stateDefinitions =  _graph?.stateDefinitions ?? {};
+  late final Map<Type, _State<STATE, EVENT, SIDE_EFFECT>> _stateDefinitions = _graph?.stateDefinitions ?? {};
   late List<TransitionListener<STATE, EVENT, SIDE_EFFECT>> _onTransitionListeners = _graph?.onTransitionListeners ?? [];
 
   void initialState(STATE state) => _initialState = state;
@@ -71,7 +71,8 @@ class StateDefinitionBuilder<S extends STATE, STATE, EVENT, SIDE_EFFECT> {
   TransitionTo<STATE, SIDE_EFFECT> transitionTo(
     STATE toState, [
     SIDE_EFFECT? sideEffect,
-  ]) => TransitionTo._(toState, sideEffect);
+  ]) =>
+      TransitionTo._(toState, sideEffect);
 
   _State<STATE, EVENT, SIDE_EFFECT> build() => _stateDefinition;
 }

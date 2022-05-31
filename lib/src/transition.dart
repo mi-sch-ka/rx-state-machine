@@ -3,7 +3,8 @@ part of 'rx_state_machine.dart';
 abstract class Transition<STATE, EVENT, SIDE_EFFECT> {
   Transition._();
 
-  factory Transition.valid(STATE fromState, EVENT event, STATE toState, SIDE_EFFECT? sideEffect) => Valid(fromState, event, toState, sideEffect);
+  factory Transition.valid(STATE fromState, EVENT event, STATE toState, SIDE_EFFECT? sideEffect) =>
+      Valid(fromState, event, toState, sideEffect);
 
   factory Transition.invalid(STATE state, EVENT event) => Invalid(state, event);
 }
