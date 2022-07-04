@@ -27,27 +27,29 @@ void main() {
    * | State.Closed | State.Open      |                   |
    * ```
    */
-  RxStateMachine<State, Event, Function> _stateMachine = RxStateMachine<State, Event, Function>.create((g) => g
-    ..initialState(Open())
-    ..state<Open>((b) => b
-      ..on<OnClosing>((state, event) {
-        return b.transitionTo(Closed());
-      }))
-    ..state<Closed>((b) => b
-      ..on<OnOpening>((state, event) {
-        return b.transitionTo(Open());
-      }))
-    ..onTransition((transition) {
-      if (transition is Valid) {
-        final item = transition as Valid;
-        log("Valid transition: from [${item.fromState}] to [${item.toState}] by [${item.event}]");
-      } else if (transition is Invalid) {
-        final item = transition as Invalid;
-        log("Invalid transition: from [${item.fromState}] by [${item.event}]");
-      }
-    }));
+  RxStateMachine<State, Event, Function> _stateMachine =
+      RxStateMachine<State, Event, Function>.create((g) => g
+        ..initialState(Open())
+        ..state<Open>((b) => b
+          ..on<OnClosing>((state, event) {
+            return b.transitionTo(Closed());
+          }))
+        ..state<Closed>((b) => b
+          ..on<OnOpening>((state, event) {
+            return b.transitionTo(Open());
+          }))
+        ..onTransition((transition) {
+          if (transition is Valid) {
+            final item = transition as Valid;
+            log("Valid transition: from [${item.fromState}] to [${item.toState}] by [${item.event}]");
+          } else if (transition is Invalid) {
+            final item = transition as Invalid;
+            log("Invalid transition: from [${item.fromState}] by [${item.event}]");
+          }
+        }));
 
-  RxStateMachine<State, Event, Function> _givenStateIs(State state) => _stateMachine.as((g) {
+  RxStateMachine<State, Event, Function> _givenStateIs(State state) =>
+      _stateMachine.as((g) {
         g.initialState(state);
       });
 

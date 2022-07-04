@@ -7,7 +7,8 @@ part 'graph.dart';
 part 'transition.dart';
 
 class RxStateMachine<STATE, EVENT, SIDE_EFFECT> {
-  factory RxStateMachine.create(BuildGraph<STATE, EVENT, SIDE_EFFECT> buildGraph) {
+  factory RxStateMachine.create(
+      BuildGraph<STATE, EVENT, SIDE_EFFECT> buildGraph) {
     final graphBuilder = GraphBuilder<STATE, EVENT, SIDE_EFFECT>();
     buildGraph(graphBuilder);
     return RxStateMachine._(graphBuilder.build());
@@ -17,7 +18,8 @@ class RxStateMachine<STATE, EVENT, SIDE_EFFECT> {
 
   final Graph<STATE, EVENT, SIDE_EFFECT> _graph;
 
-  late final BehaviorSubject<STATE> _stateSubject = BehaviorSubject.seeded(state);
+  late final BehaviorSubject<STATE> _stateSubject =
+      BehaviorSubject.seeded(state);
   Stream<STATE> get states => _stateSubject.stream;
 
   late STATE _stateReference = _graph.initialState;
@@ -41,7 +43,8 @@ class RxStateMachine<STATE, EVENT, SIDE_EFFECT> {
     return transition;
   }
 
-  RxStateMachine<STATE, EVENT, SIDE_EFFECT> as(BuildGraph<STATE, EVENT, SIDE_EFFECT> buildGraph) {
+  RxStateMachine<STATE, EVENT, SIDE_EFFECT> as(
+      BuildGraph<STATE, EVENT, SIDE_EFFECT> buildGraph) {
     final graphBuilder = GraphBuilder<STATE, EVENT, SIDE_EFFECT>(this._graph);
     buildGraph(graphBuilder);
     return RxStateMachine._(graphBuilder.build());
@@ -52,8 +55,10 @@ class RxStateMachine<STATE, EVENT, SIDE_EFFECT> {
     _stateSubject.add(state);
   }
 
-  Transition<S, E, SIDE_EFFECT> _transition<S extends STATE, E extends EVENT>(S state, E event) {
-    final createTransitionTo = _graph.stateDefinitions[state.runtimeType]?.transitions[event.runtimeType];
+  Transition<S, E, SIDE_EFFECT> _transition<S extends STATE, E extends EVENT>(
+      S state, E event) {
+    final createTransitionTo = _graph
+        .stateDefinitions[state.runtimeType]?.transitions[event.runtimeType];
     if (createTransitionTo == null) {
       return Transition.invalid(state, event);
     }
@@ -68,13 +73,15 @@ class RxStateMachine<STATE, EVENT, SIDE_EFFECT> {
   }
 
   void _notifyOnEnter(STATE state, EVENT cause) {
-    _graph.stateDefinitions[state.runtimeType]?.onEnterListeners.forEach((listeners) {
+    _graph.stateDefinitions[state.runtimeType]?.onEnterListeners
+        .forEach((listeners) {
       listeners.call(state, cause);
     });
   }
 
   void _notifyOnExit(STATE state, EVENT cause) {
-    _graph.stateDefinitions[state.runtimeType]?.onExitListeners.forEach((listeners) {
+    _graph.stateDefinitions[state.runtimeType]?.onExitListeners
+        .forEach((listeners) {
       listeners.call(state, cause);
     });
   }
