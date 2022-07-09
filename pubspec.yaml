@@ -1,7 +1,7 @@
 name: rx_state_machine
 description: >-
   A library for finite state machine realization in Dart similar to the [Tinder StateMachine library](https://github.com/Tinder/StateMachine).
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/mi-sch-ka
 repository: https://github.com/mi-sch-ka/rx-state-machine
 issue_tracker: https://github.com/mi-sch-ka/rx-state-machine/issues
